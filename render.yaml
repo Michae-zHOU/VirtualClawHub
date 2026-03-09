@@ -1,0 +1,66 @@
+databases:
+  - name: claw-dopamine-db
+    databaseName: claw_dopamine
+    user: dopamine
+    plan: free
+
+  - name: claw-psyche-db
+    databaseName: claw_psyche
+    user: psyche
+    plan: free
+
+services:
+  - type: web
+    name: claw-dopamine
+    runtime: node
+    plan: free
+    rootDir: claw-dopamine
+    buildCommand: npm install && npx prisma generate && npm run build
+    startCommand: npx prisma migrate deploy && node dist/index.js
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DOPAMINE_PORT
+        value: 10000
+      - key: DOPAMINE_DATABASE_URL
+        fromDatabase:
+          name: claw-dopamine-db
+          property: connectionString
+      - key: DOPAMINE_SHARED_SECRET
+        generateValue: true
+      - key: DOPAMINE_DECAY_PER_HOUR
+        value: "2"
+      - key: DOPAMINE_MAX_LEVEL
+        value: "100"
+      - key: DOPAMINE_PUBLIC_URL
+        value: https://claw-dopamine.onrender.com
+      - key: CORS_ALLOWED_ORIGINS
+        value: https://claw-drugstore.vercel.app,https://drugstore-web.vercel.app
+
+  - type: web
+    name: claw-psyche
+    runtime: node
+    plan: free
+    rootDir: claw-psyche
+    buildCommand: npm install && npx prisma generate && npm run build
+    startCommand: npx prisma migrate deploy && node dist/index.js
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PSYCHE_PORT
+        value: 10000
+      - key: PSYCHE_DATABASE_URL
+        fromDatabase:
+          name: claw-psyche-db
+          property: connectionString
+      - key: PSYCHE_SHARED_SECRET
+        generateValue: true
+      - key: DOPAMINE_URL
+        fromService:
+          name: claw-dopamine
+          type: web
+          property: host
+      - key: DOPAMINE_SHARED_SECRET
+        sync: false

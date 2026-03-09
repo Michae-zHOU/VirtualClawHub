@@ -18,7 +18,7 @@ function warnIfDefault(key: string, devDefault: string): string {
 const isProduction = process.env.NODE_ENV === 'production';
 
 export const config = {
-  port: parseInt(process.env.PSYCHE_PORT ?? '8788', 10),
+  port: parseInt(process.env.PORT ?? process.env.PSYCHE_PORT ?? '8788', 10),
   sharedSecret: isProduction
     ? requireEnv('PSYCHE_SHARED_SECRET')
     : warnIfDefault('PSYCHE_SHARED_SECRET', 'change-me'),

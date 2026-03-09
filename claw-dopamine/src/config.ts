@@ -18,7 +18,7 @@ function warnIfDefault(key: string, devDefault: string): string {
 const isProduction = process.env.NODE_ENV === 'production';
 
 export const config = {
-  port: Number(process.env.DOPAMINE_PORT ?? 8787),
+  port: Number(process.env.PORT ?? process.env.DOPAMINE_PORT ?? 8787),
   sharedSecret: isProduction
     ? requireEnv('DOPAMINE_SHARED_SECRET')
     : warnIfDefault('DOPAMINE_SHARED_SECRET', 'dev-secret-change-me'),
