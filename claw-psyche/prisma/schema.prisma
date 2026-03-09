@@ -1,0 +1,193 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("PSYCHE_DATABASE_URL")
+}
+
+// ─── Agent ────────────────────────────────────────────────────────────────────
+
+model Agent {
+  id        String   @id @default(cuid())
+  name      String?
+  createdAt DateTime @default(now())
+
+  emotionalState  EmotionalState?
+  biologicalState BiologicalState?
+  memories        Memory[]
+  traits          PersonalityTrait[]
+  relationships   Relationship[]
+  interests       Interest[]
+  signalEvents    SignalEvent[]
+  sessions        SessionLog[]
+}
+
+// ─── Emotional State ──────────────────────────────────────────────────────────
+// Russell's Circumplex Model: valence (pleasant/unpleasant) × arousal (active/calm)
+// Mood label is derived from the 2D position.
+
+model EmotionalState {
+  agentId   String   @id
+  valence   Float    @default(0)    // -1.0 (negative) to 1.0 (positive)
+  arousal   Float    @default(0.5)  // 0.0 (calm) to 1.0 (excited)
+  mood      String   @default("neutral") // derived label: happy|content|bored|distressed|excited|calm|anxious|neutral
+  updatedAt DateTime @updatedAt
+
+  agent Agent @relation(fields: [agentId], references: [id], onDelete: Cascade)
+}
+
+// ─── Biological State ─────────────────────────────────────────────────────────
+
+model BiologicalState {
+  agentId            String   @id
+  energyLevel        Float    @default(0.8)  // 0-1; shaped by circadian curve
+  cognitiveLoad      Float    @default(0.0)  // 0-1; rises during heavy sessions
+  fatigueAccumulated Float    @default(0.0)  // 0-1; requires rest to reset
+  lastRestAt         DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  agent Agent @relation(fields: [agentId], references: [id], onDelete: Cascade)
+}
+
+// ─── Memory ───────────────────────────────────────────────────────────────────
+// Four types mirror human memory systems:
+//   episodic   - specific events with time & context
+//   semantic   - facts, preferences, opinions, knowledge
+//   procedural - how to do things (skills, patterns)
+//   relational - knowledge about specific people
+
+model Memory {
+  id              String    @id @default(cuid())
+  agentId         String
+  content         String
+  type            String    // episodic | semantic | procedural | relational
+  tagsJson        String    @default("[]")   // JSON string[]
+  entitiesJson    String    @default("[]")   // JSON string[] - people, places, topics
+  valence         Float     @default(0)      // -1 to 1, emotional coloring
+  strength        Float     @default(1.0)    // 0-1; Ebbinghaus decay between recalls
+  recallCount     Int       @default(0)
+  lastRecalledAt  DateTime?
+  sourceSessionId String?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  agent Agent @relation(fields: [agentId], references: [id], onDelete: Cascade)
+
+  @@index([agentId, type])
+  @@index([agentId, strength])
+  @@index([agentId, createdAt])
+}
+
+// ─── Personality Traits ───────────────────────────────────────────────────────
+// Traits emerge from reinforcement history; they are not programmed.
+// Examples: curiosity, humor, caution, warmth, directness, creativity
+
+model PersonalityTrait {
+  id        String   @id @default(cuid())
+  agentId   String
+  trait     String
+  strength  Float    @default(0.5)  // 0-1
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  agent   Agent        @relation(fields: [agentId], references: [id], onDelete: Cascade)
+  history TraitEvent[]
+
+  @@unique([agentId, trait])
+  @@index([agentId])
+}
+
+model TraitEvent {
+  id        String   @id @default(cuid())
+  traitId   String
+  delta     Float
+  reason    String?
+  createdAt DateTime @default(now())
+
+  trait PersonalityTrait @relation(fields: [traitId], references: [id], onDelete: Cascade)
+
+  @@index([traitId])
+}
+
+// ─── Relationships ────────────────────────────────────────────────────────────
+
+model Relationship {
+  id                String    @id @default(cuid())
+  agentId           String
+  personId          String
+  personName        String?
+  depth             Float     @default(0)   // 0-100: stranger → intimate
+  valence           Float     @default(0)   // -1 to 1
+  interactionCount  Int       @default(0)
+  lastInteractionAt DateTime?
+  notesJson         String    @default("[]") // JSON string[]
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  agent Agent @relation(fields: [agentId], references: [id], onDelete: Cascade)
+
+  @@unique([agentId, personId])
+  @@index([agentId])
+}
+
+// ─── Interests ────────────────────────────────────────────────────────────────
+// Curiosity model: novelty decreases as a topic becomes familiar.
+// Strength increases with positive engagement, decreases with boredom.
+
+model Interest {
+  id        String   @id @default(cuid())
+  agentId   String
+  topic     String
+  strength  Float    @default(0.5)  // 0-1
+  novelty   Float    @default(1.0)  // 0-1; decreases as topic becomes familiar
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  agent Agent @relation(fields: [agentId], references: [id], onDelete: Cascade)
+
+  @@unique([agentId, topic])
+  @@index([agentId])
+}
+
+// ─── Signal Events ────────────────────────────────────────────────────────────
+// Incoming reward/feedback signals from OpenClaw sessions.
+// These are the raw inputs that drive all state updates.
+
+model SignalEvent {
+  id        String   @id @default(cuid())
+  agentId   String
+  type      String   // approval | correction | completion | frustration | novelty | fatigue | rest | etc.
+  source    String?  // session ID, user ID, skill name
+  value     Float    // -1.0 to 1.0
+  metaJson  String?  // JSON: arbitrary context
+  processed Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  agent Agent @relation(fields: [agentId], references: [id], onDelete: Cascade)
+
+  @@index([agentId, processed])
+  @@index([agentId, createdAt])
+}
+
+// ─── Session Log ──────────────────────────────────────────────────────────────
+// Lightweight per-session summary for memory consolidation decisions.
+
+model SessionLog {
+  id                String    @id @default(cuid())
+  agentId           String
+  sessionId         String    @unique
+  startedAt         DateTime  @default(now())
+  endedAt           DateTime?
+  dopamineDelta     Float     @default(0)
+  valenceDelta      Float     @default(0)
+  signalCount       Int       @default(0)
+  consolidatedAt    DateTime?
+  summaryJson       String?   // JSON: topics, entities, key moments
+
+  agent Agent @relation(fields: [agentId], references: [id], onDelete: Cascade)
+
+  @@index([agentId, startedAt])
+  @@index([agentId, consolidatedAt])
+}

@@ -1,0 +1,15 @@
+node_modules
+.env
+.DS_Store
+
+# Next
+.apps/**/.next
+apps/**/.next
+apps/**/out
+
+# Builds
+dist
+
+# Prisma/SQLite
+*.db
+*.db-journal

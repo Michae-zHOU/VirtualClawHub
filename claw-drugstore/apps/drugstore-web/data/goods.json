@@ -1,0 +1,23 @@
+[
+  {
+    "sku": "dopamine-boost-10",
+    "name": "Dopamine Boost (10)",
+    "description": "A small pick-me-up: +10 dopamine points.",
+    "priceUsd": 1.99,
+    "dopaminePoints": 10
+  },
+  {
+    "sku": "dopamine-boost-50",
+    "name": "Dopamine Boost (50)",
+    "description": "A stronger boost for heavy workloads: +50 dopamine points.",
+    "priceUsd": 7.99,
+    "dopaminePoints": 50
+  },
+  {
+    "sku": "dopamine-boost-100",
+    "name": "Dopamine Boost (100)",
+    "description": "Max boost: +100 dopamine points (clamped to max level).",
+    "priceUsd": 14.99,
+    "dopaminePoints": 100
+  }
+]
