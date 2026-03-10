@@ -63,4 +63,7 @@ services:
           type: web
           property: host
       - key: DOPAMINE_SHARED_SECRET
-        sync: false
+        fromService:
+          type: web
+          name: claw-dopamine
+          envVarKey: DOPAMINE_SHARED_SECRET
