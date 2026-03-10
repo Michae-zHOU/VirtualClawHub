@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 
 type ServiceCard = {
   name: string;
-  port: number;
+  label: string;
   description: string;
   href: string;
   color: string;
@@ -17,7 +17,7 @@ const drugstoreSiteUrl = process.env.NEXT_PUBLIC_DRUGSTORE_SITE_URL ?? '';
 const services: ServiceCard[] = [
   {
     name: 'claw-dopamine',
-    port: 8787,
+    label: 'reward engine',
     description: 'Reward & motivation engine. Tracks dopamine levels, decay, device pairing, and reward token redemption.',
     href: '/dopamine',
     color: 'var(--accent)',
@@ -30,7 +30,7 @@ const services: ServiceCard[] = [
   },
   {
     name: 'claw-psyche',
-    port: 8788,
+    label: 'psyche engine',
     description: 'Full psychological state engine. Mood, personality traits, memory consolidation, relationships, biological rhythms.',
     href: '/psyche',
     color: 'var(--accent2)',
@@ -42,7 +42,7 @@ const services: ServiceCard[] = [
   },
   {
     name: 'drugstore-web',
-    port: 3000,
+    label: 'store & hub',
     description: 'Digital goods store. Agents can purchase dopamine boosts and other reward items.',
     href: '/store',
     color: '#22c55e',
@@ -54,7 +54,7 @@ const services: ServiceCard[] = [
   },
   {
     name: 'drugstore-site',
-    port: 3001,
+    label: 'marketing site',
     description: 'Marketing & showcase site for the VirtualDynamicLabs platform.',
     href: drugstoreSiteUrl || '#',
     color: '#6d5efc',
@@ -115,7 +115,7 @@ export default function HubPage() {
               <div key={s.name} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                 <span style={{ width: 8, height: 8, borderRadius: '50%', background: s.color, display: 'inline-block', flexShrink: 0 }} />
                 <span style={{ fontSize: 13 }}>{s.icon} {s.name}</span>
-                <span className="small" style={{ marginLeft: 'auto' }}>:{s.port}</span>
+                <span className="small" style={{ marginLeft: 'auto' }}>{s.label}</span>
               </div>
             ))}
           </div>
@@ -130,7 +130,7 @@ export default function HubPage() {
                   <span style={{ fontSize: 28 }}>{s.icon}</span>
                   <div>
                     <div style={{ fontWeight: 900, letterSpacing: -0.3 }}>{s.name}</div>
-                    <div className="small">localhost:{s.port}</div>
+                    <div className="small">{s.label}</div>
                   </div>
                   <div style={{ marginLeft: 'auto', width: 10, height: 10, borderRadius: '50%', background: s.color, boxShadow: `0 0 8px ${s.color}` }} />
                 </div>
@@ -151,17 +151,17 @@ export default function HubPage() {
             <pre style={{ fontSize: 12, lineHeight: 1.7, opacity: 0.85, fontFamily: 'monospace', margin: 0, whiteSpace: 'pre-wrap' }}>{`OpenClaw session
     │
     ├─ session/start
-    │     └─ GET  :8788/v1/agents/{id}/state   → inject [Psyche State] into system prompt
+    │     └─ GET  claw-psyche/v1/agents/{id}/state   → inject [Psyche State] into system prompt
     │
     ├─ during session (signals)
-    │     ├─ user 👍           → POST :8788/v1/agents/{id}/signal {type:"approval",  value:0.8}
-    │     ├─ task completed    → POST :8788/v1/agents/{id}/signal {type:"completion", value:1.0}
-    │     ├─ dopamine grant    → POST :8787/v1/grant              {accountId, delta, reason}
-    │     └─ user frustrated   → POST :8788/v1/agents/{id}/signal {type:"frustration",value:0.7}
+    │     ├─ user 👍           → POST claw-psyche/v1/agents/{id}/signal  {type:"approval",   value:0.8}
+    │     ├─ task completed    → POST claw-psyche/v1/agents/{id}/signal  {type:"completion", value:1.0}
+    │     ├─ dopamine grant    → POST claw-dopamine/v1/grant             {accountId, delta, reason}
+    │     └─ user frustrated   → POST claw-psyche/v1/agents/{id}/signal  {type:"frustration",value:0.7}
     │
     └─ session/end
-          ├─ POST :8788/v1/agents/{id}/sessions/{sid}/end
-          └─ POST :8788/v1/agents/{id}/sessions/{sid}/consolidate  ← dopamine-gated memory`}</pre>
+          ├─ POST claw-psyche/v1/agents/{id}/sessions/{sid}/end
+          └─ POST claw-psyche/v1/agents/{id}/sessions/{sid}/consolidate  ← dopamine-gated memory`}</pre>
           </div>
         </div>
       </div>
