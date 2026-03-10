@@ -55,7 +55,7 @@ const services: ServiceCard[] = [
   {
     name: 'drugstore-site',
     label: 'marketing site',
-    description: 'Marketing & showcase site for the VirtualDynamicLabs platform.',
+    description: 'Marketing & showcase site for the VirtualClawLabs platform.',
     href: drugstoreSiteUrl || '#',
     color: '#6d5efc',
     icon: '🌐',
@@ -86,7 +86,7 @@ export default function HubPage() {
             <a className="brand" href="/">
               <div className="logo" />
               <div>
-                <div className="brandName">VirtualDynamicLabs</div>
+                <div className="brandName">VirtualClawLabs</div>
                 <div className="brandTag">service hub</div>
               </div>
             </a>
@@ -105,7 +105,7 @@ export default function HubPage() {
           <div className="heroMain">
             <h1>Service hub.</h1>
             <p>
-              Monitor and interact with all VirtualDynamicLabs services from one place.
+              Monitor and interact with all VirtualClawLabs services from one place.
               The personality OS for AI agents — dopamine rewards, psychological state, memory, and the store.
             </p>
           </div>

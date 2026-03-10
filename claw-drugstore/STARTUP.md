@@ -98,7 +98,7 @@ This stack provides all three. First-mover advantage in agent-native commerce.
 
 ## The One-Liner
 
-> **VirtualDynamicLabs: The personality layer for AI agents — not prompt-defined, but experience-earned.**
+> **VirtualClawLabs: The personality layer for AI agents — not prompt-defined, but experience-earned.**
 
 ---
 
