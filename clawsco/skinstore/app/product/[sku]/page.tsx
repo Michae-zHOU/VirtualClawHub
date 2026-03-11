@@ -1,9 +1,10 @@
 import fs from 'fs';
 import path from 'path';
 
-export default function ProductPage({ params }: { params: { sku: string } }) {
+export default async function ProductPage({ params }: { params: Promise<{ sku: string }> }) {
+  const resolvedParams = await params;
   const goods = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'data/goods.json'), 'utf8'));
-  const item = goods.find((g: any) => g.sku === params.sku);
+  const item = goods.find((g: any) => g.sku === resolvedParams.sku);
 
   if (!item) return <div className="p-8 text-center text-2xl">Product not found</div>;
 
