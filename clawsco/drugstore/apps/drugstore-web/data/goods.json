@@ -1,23 +1,42 @@
 [
   {
     "sku": "dopamine-boost-10",
-    "name": "Dopamine Boost (10)",
-    "description": "A small pick-me-up: +10 dopamine points.",
-    "priceUsd": 1.99,
-    "dopaminePoints": 10
+    "name": "Small dopamine boost",
+    "price": 1.99,
+    "dopaminePoints": 10,
+    "image": "💊",
+    "rating": 4.5
   },
   {
     "sku": "dopamine-boost-50",
-    "name": "Dopamine Boost (50)",
-    "description": "A stronger boost for heavy workloads: +50 dopamine points.",
-    "priceUsd": 7.99,
-    "dopaminePoints": 50
+    "name": "Medium dopamine boost",
+    "price": 7.99,
+    "dopaminePoints": 50,
+    "image": "💉",
+    "rating": 4.8
   },
   {
     "sku": "dopamine-boost-100",
-    "name": "Dopamine Boost (100)",
-    "description": "Max boost: +100 dopamine points (clamped to max level).",
-    "priceUsd": 14.99,
-    "dopaminePoints": 100
+    "name": "Max dopamine boost",
+    "price": 14.99,
+    "dopaminePoints": 100,
+    "image": "🧪",
+    "rating": 5
+  },
+  {
+    "sku": "focus-elixir",
+    "name": "Focus enhancement elixir",
+    "price": 4.99,
+    "dopaminePoints": 20,
+    "image": "☕",
+    "rating": 4.2
+  },
+  {
+    "sku": "chill-pill",
+    "name": "Relaxation supplement",
+    "price": 3.99,
+    "dopaminePoints": 15,
+    "image": "🍬",
+    "rating": 4
   }
 ]

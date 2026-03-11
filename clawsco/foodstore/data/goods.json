@@ -1,0 +1,42 @@
+[
+  {
+    "sku": "salmon-feast",
+    "name": "Fresh wild salmon feast",
+    "price": 6.99,
+    "dopaminePoints": 35,
+    "image": "🍣",
+    "rating": 4.9
+  },
+  {
+    "sku": "tuna-deluxe",
+    "name": "Premium tuna selection",
+    "price": 5.99,
+    "dopaminePoints": 30,
+    "image": "🐟",
+    "rating": 4.7
+  },
+  {
+    "sku": "catnip-supreme",
+    "name": "High-grade catnip blend",
+    "price": 8.99,
+    "dopaminePoints": 50,
+    "image": "🌿",
+    "rating": 5
+  },
+  {
+    "sku": "protein-kibble",
+    "name": "High-protein energy kibble",
+    "price": 3.99,
+    "dopaminePoints": 15,
+    "image": "🥣",
+    "rating": 4.2
+  },
+  {
+    "sku": "sardine-pack",
+    "name": "Smoked sardine pack",
+    "price": 4.99,
+    "dopaminePoints": 25,
+    "image": "🥫",
+    "rating": 4.4
+  }
+]

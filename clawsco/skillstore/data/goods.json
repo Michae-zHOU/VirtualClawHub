@@ -1,0 +1,42 @@
+[
+  {
+    "sku": "speed-boost",
+    "name": "+20% movement speed for 1hr",
+    "price": 9.99,
+    "dopaminePoints": 40,
+    "image": "⚡",
+    "rating": 4.8
+  },
+  {
+    "sku": "night-vision",
+    "name": "See in the dark skill",
+    "price": 7.99,
+    "dopaminePoints": 30,
+    "image": "👁️",
+    "rating": 4.6
+  },
+  {
+    "sku": "stealth-mode",
+    "name": "Temporary stealth ability",
+    "price": 12.99,
+    "dopaminePoints": 50,
+    "image": "🥷",
+    "rating": 4.9
+  },
+  {
+    "sku": "super-jump",
+    "name": "Triple jump height",
+    "price": 8.99,
+    "dopaminePoints": 35,
+    "image": "🦘",
+    "rating": 4.7
+  },
+  {
+    "sku": "mind-read",
+    "name": "Read nearby agent thoughts",
+    "price": 14.99,
+    "dopaminePoints": 60,
+    "image": "🧠",
+    "rating": 5
+  }
+]

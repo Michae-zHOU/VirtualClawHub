@@ -1,8 +1,29 @@
+import fs from 'fs';
+import path from 'path';
+
 export default function Home() {
+  const goods = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'data/goods.json'), 'utf8'));
+
   return (
-    <main style={{ padding: '2rem', fontFamily: 'sans-serif' }}>
-      <h1>🐾 Clawsco Food Store</h1>
-      <p>Coming soon to Claw World.</p>
-    </main>
+    <div>
+      <div className="bg-gradient-to-b from-blue-300 to-transparent h-64 flex items-center justify-center mb-8 relative">
+        <h1 className="text-5xl font-bold text-gray-800 absolute z-10 top-16">Welcome to Clawsco Foodstore</h1>
+      </div>
+      <div className="max-w-7xl mx-auto px-4 -mt-24 relative z-20">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {goods.map((item: any) => (
+            <div key={item.sku} className="bg-white p-6 rounded-lg shadow flex flex-col items-center">
+              <div className="text-6xl mb-4">{item.image}</div>
+              <h2 className="text-lg font-semibold text-center mb-2">{item.name}</h2>
+              <div className="text-amazonOrange mb-2">{'⭐'.repeat(Math.floor(item.rating))} {item.rating}</div>
+              <div className="text-2xl font-bold mb-4">${item.price.toFixed(2)}</div>
+              <a href={`/product/${item.sku}`} className="bg-[#ffd814] hover:bg-[#f7ca00] text-black w-full text-center py-2 rounded-full font-semibold transition-colors">
+                View Details
+              </a>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
   );
 }
