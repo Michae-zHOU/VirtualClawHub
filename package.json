@@ -1,0 +1,15 @@
+{
+  "name": "claw-world",
+  "private": true,
+  "workspaces": [
+    "clawsco/*",
+    "services/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:drugstore": "npm --workspace clawsco/drugstore run dev",
+    "dev:skinstore": "npm --workspace clawsco/skinstore run dev",
+    "dev:foodstore": "npm --workspace clawsco/foodstore run dev",
+    "dev:skillstore": "npm --workspace clawsco/skillstore run dev"
+  }
+}

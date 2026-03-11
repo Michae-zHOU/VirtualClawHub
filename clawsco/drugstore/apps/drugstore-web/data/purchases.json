@@ -1,0 +1,16 @@
+[
+  {
+    "ts": "2026-03-11T02:59:08.767Z",
+    "accountId": "cmmlg7kt40000cfbzcaslzcdb",
+    "sku": "dopamine-boost-10",
+    "priceUsd": 1.99,
+    "dopaminePoints": 10
+  },
+  {
+    "ts": "2026-03-11T02:59:08.710Z",
+    "accountId": "cmmlg7kt40000cfbzcaslzcdb",
+    "sku": "dopamine-boost-50",
+    "priceUsd": 7.99,
+    "dopaminePoints": 50
+  }
+]

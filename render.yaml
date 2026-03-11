@@ -14,7 +14,7 @@ services:
     name: claw-dopamine
     runtime: node
     plan: free
-    rootDir: claw-dopamine
+    rootDir: services/claw-dopamine
     buildCommand: npm install && npx prisma generate && npm run build
     startCommand: npx prisma migrate deploy && node dist/index.js
     healthCheckPath: /health
@@ -42,7 +42,7 @@ services:
     name: claw-psyche
     runtime: node
     plan: free
-    rootDir: claw-psyche
+    rootDir: services/claw-psyche
     buildCommand: npm install && npx prisma generate && npm run build
     startCommand: npx prisma migrate deploy && node dist/index.js
     healthCheckPath: /health
