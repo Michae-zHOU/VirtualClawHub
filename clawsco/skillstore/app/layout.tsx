@@ -8,8 +8,8 @@ import Footer from './components/Footer';
 import { CartProvider } from './components/CartContext';
 
 export const metadata: Metadata = {
-  title: 'Skill Store | Premium Experience',
-  description: 'Premium e-commerce experience curated for excellence.',
+  title: 'Skill Store | Agent Skills & Abilities',
+  description: 'Agent-first skill marketplace with human-readable interface.',
 };
 
 export default function RootLayout({
@@ -19,7 +19,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${primaryFont.variable} ${secondaryFont.variable}`}>
-      <body className="min-h-screen flex flex-col antialiased selection:bg-current selection:text-white font-secondary bg-[#0D1117] text-white">
+      <body className="min-h-screen flex flex-col antialiased font-secondary bg-[#fafafa] text-[#0f172a]">
         <CartProvider>
           <Navbar />
           <main className="flex-grow">

@@ -1,19 +1,363 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --background: #f8fafc;
+  --foreground: #111827;
+  --panel: #ffffff;
+  --line: #d1d5db;
+  --muted: #374151;
+  --accent: #2563eb;
+  --accent2: #7c3aed;
+  --green: #16a34a;
+  --danger-bg: #fef2f2;
+  --danger-line: #fecaca;
+  --danger-text: #991b1b;
+  color-scheme: light;
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
   font-family: var(--font-secondary), sans-serif;
+}
+
+a {
+  color: inherit;
+}
+
+.container {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  border-bottom: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.97);
+  backdrop-filter: blur(8px);
+}
+
+.header {
+  min-height: 4rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  padding: 0.75rem 0;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  text-decoration: none;
+}
+
+.logo {
+  width: 2.1rem;
+  height: 2.1rem;
+  border-radius: 0.75rem;
+  border: 1px solid var(--line);
+  background: radial-gradient(circle at 30% 25%, #93c5fd, #2563eb);
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.2);
+}
+
+.brandName {
+  font-size: 0.95rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.brandTag {
+  font-size: 0.75rem;
+  color: var(--muted);
+  line-height: 1.1;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 230px;
+  margin-left: auto;
+}
+
+.search input {
+  width: 100%;
+  min-width: 170px;
+  border: 1px solid var(--line);
+  border-radius: 0.65rem;
+  padding: 0.55rem 0.75rem;
+  background: #ffffff;
+  color: var(--foreground);
+  outline: none;
+}
+
+.searchBtn {
+  border: 1px solid var(--line);
+  border-radius: 0.65rem;
+  padding: 0.55rem 0.75rem;
+  font-size: 0.875rem;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.pill {
+  text-decoration: none;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.35rem 0.75rem;
+  font-size: 0.8rem;
+  color: var(--muted);
+  background: #ffffff;
+  font-weight: 600;
+}
+
+.hero {
+  margin-top: 1.2rem;
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+  background: linear-gradient(160deg, #ffffff 0%, #f3f7ff 100%);
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 1rem;
+}
+
+.heroMain,
+.heroSide {
+  padding: 1.1rem 1.1rem 1rem;
+}
+
+.heroMain h1 {
+  margin: 0;
+  font-size: clamp(1.45rem, 2.2vw, 2rem);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.heroMain p {
+  margin: 0.65rem 0 0;
+  color: var(--muted);
+  line-height: 1.6;
+  font-size: 0.97rem;
+}
+
+.heroSide {
+  border-left: 1px solid var(--line);
+  background: rgba(239, 246, 255, 0.85);
+}
+
+.sectionTitle {
+  margin: 1.4rem 0 0.7rem;
+  font-size: 0.95rem;
+  color: #334155;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+
+.card {
+  border: 1px solid var(--line);
+  border-radius: 0.9rem;
+  background: var(--panel);
+  overflow: hidden;
+  color: var(--foreground);
+}
+
+.cardTop {
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  padding: 0.8rem 0.9rem;
+}
+
+.cardBody {
+  padding: 0.9rem;
+}
+
+.cardActions {
+  border-top: 1px solid var(--line);
+  padding: 0.9rem;
+}
+
+.title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.desc {
+  margin: 0.45rem 0 0;
+  min-height: 2.4rem;
+  color: var(--muted);
+  font-size: 0.93rem;
+  line-height: 1.45;
+}
+
+.small {
+  color: var(--muted);
+  font-size: 0.84rem;
+  line-height: 1.45;
+}
+
+.sku {
+  font-size: 0.75rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  color: var(--muted);
+}
+
+.badge {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.22rem 0.55rem;
+  font-size: 0.75rem;
+  color: #334155;
+  background: #eef2ff;
+  font-weight: 600;
+}
+
+.priceRow {
+  margin-top: 0.75rem;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.price {
+  font-size: 1.22rem;
+  font-weight: 900;
+  letter-spacing: -0.01em;
+}
+
+.dopa {
+  font-size: 0.8rem;
+  color: var(--green);
+  font-weight: 700;
+}
+
+.btn {
+  border: 1px solid var(--line);
+  border-radius: 0.65rem;
+  padding: 0.52rem 0.8rem;
+  background: #fff;
+  color: var(--foreground);
+  font-size: 0.86rem;
+  font-weight: 700;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btnActive {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #fff;
+}
+
+.textInput {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 0.65rem;
+  padding: 0.55rem 0.7rem;
+  background: #fff;
+  outline: none;
+}
+
+.textInput:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.8rem;
+  border: 1px solid var(--line);
+  border-radius: 0.4rem;
+  padding: 0.12rem 0.3rem;
+  background: #f1f5f9;
+  color: #0f172a;
+}
+
+.metaBox {
+  margin-top: 0.6rem;
+  max-height: 260px;
+  overflow: auto;
+  border: 1px solid var(--line);
+  border-radius: 0.55rem;
+  background: #f1f5f9;
+  padding: 0.6rem;
+  font-size: 0.78rem;
+  color: #0f172a;
+}
+
+.errorBox {
+  border: 1px solid var(--danger-line);
+  border-radius: 0.65rem;
+  background: var(--danger-bg);
+  color: var(--danger-text);
+  padding: 0.7rem;
+  font-size: 0.82rem;
+}
+
+.meter {
+  width: 100%;
+  height: 0.58rem;
+  border-radius: 999px;
+  background: #e5e7eb;
+  overflow: hidden;
+}
+
+.meterFill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #38bdf8, #2563eb);
+}
+
+.footer {
+  margin: 1.4rem 0 2rem;
+  border-top: 1px solid var(--line);
+  padding-top: 0.9rem;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  font-size: 0.8rem;
+}
+
+@media (max-width: 940px) {
+  .hero,
+  .grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .heroSide {
+    border-left: 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .search {
+    width: 100%;
+    margin-left: 0;
+  }
 }

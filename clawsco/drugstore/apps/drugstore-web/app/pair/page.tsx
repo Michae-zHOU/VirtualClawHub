@@ -54,59 +54,134 @@ export default function PairPage() {
   }
 
   return (
-    <main>
-      <h1>QR Pairing (claw-dopamine)</h1>
-      <p>This creates an account + a short-lived invite you can scan on another machine.</p>
-
-      <div style={{ display: 'flex', gap: 12, marginTop: 12 }}>
-        <button onClick={() => createAccount().catch((e) => setErr(String(e)))}>
-          1) Create account
-        </button>
-        <button disabled={!account} onClick={() => createInvite().catch((e) => setErr(String(e)))}>
-          2) Create QR invite
-        </button>
+    <div>
+      <div className="topbar">
+        <div className="container">
+          <div className="header">
+            <a className="brand" href="/store">
+              <div className="logo" />
+              <div>
+                <div className="brandName">Claw Drugstore</div>
+                <div className="brandTag">pair devices securely</div>
+              </div>
+            </a>
+            <div className="nav" style={{ marginLeft: 'auto' }}>
+              <a className="pill" href="/store">Store</a>
+              <a className="pill" href="/dopamine">Dopamine</a>
+              <a className="pill" href="/psyche">Psyche</a>
+              <a className="pill" href="/pair" style={{ borderColor: 'var(--accent)', opacity: 1 }}>Pair</a>
+            </div>
+          </div>
+        </div>
       </div>
 
-      {err ? (
-        <pre style={{ background: '#fee', padding: 12, marginTop: 12, whiteSpace: 'pre-wrap' }}>{err}</pre>
-      ) : null}
-
-      {account ? (
-        <div style={{ marginTop: 16 }}>
-          <div>
-            <b>accountId:</b> <code>{account.accountId}</code>
+      <div className="container">
+        <section className="hero">
+          <div className="heroMain">
+            <h1>Pair a new device to a dopamine account.</h1>
+            <p>
+              This page is agent-first but human-readable: create an account, generate a short-lived QR invite, then
+              use that invite on a second machine to claim a device key.
+            </p>
           </div>
-          <div>
-            <b>recoveryCode:</b> <code>{account.recoveryCode}</code> (store this somewhere safe)
+          <div className="heroSide">
+            <div style={{ fontWeight: 900, marginBottom: 8 }}>Pairing flow</div>
+            <div className="small">
+              1) Create account
+              <br />
+              2) Create invite
+              <br />
+              3) Claim device with <span className="code">POST /v1/devices/claim</span>
+            </div>
+          </div>
+        </section>
+
+        <div className="card" style={{ marginTop: 18 }}>
+          <div className="cardBody">
+            <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+              <button className="btn btnActive" onClick={() => createAccount().catch((e) => setErr(String(e)))}>
+                1) Create account
+              </button>
+              <button
+                className="btn"
+                disabled={!account}
+                onClick={() => createInvite().catch((e) => setErr(String(e)))}
+              >
+                2) Create QR invite
+              </button>
+            </div>
+
+            {err ? (
+              <pre className="errorBox" style={{ marginTop: 12, whiteSpace: 'pre-wrap' }}>{err}</pre>
+            ) : null}
           </div>
         </div>
-      ) : null}
 
-      {invite ? (
-        <div style={{ marginTop: 16 }}>
+        {account ? (
+          <>
+            <div className="sectionTitle">Account credentials</div>
+            <div className="card">
+              <div className="cardBody">
+                <div className="small">
+                  accountId: <span className="code">{account.accountId}</span>
+                </div>
+                <div className="small" style={{ marginTop: 10 }}>
+                  recoveryCode: <span className="code">{account.recoveryCode}</span>
+                </div>
+                <div className="small" style={{ marginTop: 10 }}>
+                  Save your recovery code securely. It is required for account view and pairing operations.
+                </div>
+              </div>
+            </div>
+          </>
+        ) : null}
+
+        {invite ? (
+          <>
+            <div className="sectionTitle">Active invite</div>
+            <div className="grid" style={{ gridTemplateColumns: '0.95fr 1.05fr' }}>
+              <div className="card">
+                <div className="cardBody">
+                  <div className="small">inviteCode</div>
+                  <div style={{ marginTop: 6 }}>
+                    <span className="code">{invite.inviteCode}</span>
+                  </div>
+                  <div className="small" style={{ marginTop: 12 }}>
+                    expiresAt: <span className="code">{invite.expiresAt}</span>
+                  </div>
+                  <div className="small" style={{ marginTop: 12 }}>
+                    This invite is short-lived and can be redeemed once by a device.
+                  </div>
+                </div>
+              </div>
+              <div className="card">
+                <div className="cardBody">
+                  <div className="small" style={{ marginBottom: 10 }}>Scan QR on the target machine</div>
+                  {qrDataUrl ? <img src={qrDataUrl} alt="pairing qr" style={{ borderRadius: 10 }} /> : null}
+                </div>
+              </div>
+            </div>
+
+            <div className="card" style={{ marginTop: 12 }}>
+              <div className="cardBody">
+                <details>
+                  <summary>QR payload JSON</summary>
+                  <pre className="metaBox" style={{ whiteSpace: 'pre-wrap' }}>
+                    {JSON.stringify(invite.qrPayload, null, 2)}
+                  </pre>
+                </details>
+              </div>
+            </div>
+          </>
+        ) : null}
+
+        <div className="footer">
           <div>
-            <b>inviteCode:</b> <code>{invite.inviteCode}</code>
+            Next step on new machine: call <span className="code">POST /v1/devices/claim</span> with inviteCode and publicKey.
           </div>
-          <div>
-            <b>expiresAt:</b> <code>{invite.expiresAt}</code>
-          </div>
-          <div style={{ marginTop: 12 }}>
-            {qrDataUrl ? <img src={qrDataUrl} alt="pairing qr" /> : null}
-          </div>
-          <details style={{ marginTop: 12 }}>
-            <summary>QR payload JSON</summary>
-            <pre style={{ background: '#f6f6f6', padding: 12, whiteSpace: 'pre-wrap' }}>
-              {JSON.stringify(invite.qrPayload, null, 2)}
-            </pre>
-          </details>
+          <div>Pairing endpoint is agent-automation friendly.</div>
         </div>
-      ) : null}
-
-      <hr style={{ margin: '24px 0' }} />
-      <p>
-        Next step on the new machine: generate a device keypair and call <code>POST /v1/devices/claim</code> with the
-        inviteCode + publicKey.
-      </p>
-    </main>
+      </div>
+    </div>
   );
 }

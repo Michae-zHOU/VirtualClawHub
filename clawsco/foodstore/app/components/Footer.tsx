@@ -2,43 +2,38 @@ import Link from 'next/link';
 
 export default function Footer() {
   return (
-    <footer className="border-t pt-16 pb-8 mt-auto bg-white text-gray-900 border-green-50">
+    <footer className="border-t border-slate-200 bg-white pt-16 pb-8 mt-auto">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
           <div>
             <div className="flex items-center gap-2 mb-4">
               <span className="text-3xl">🍔</span>
-              <span className="font-bold text-xl font-primary">Food Store</span>
+              <span className="font-bold text-xl font-primary text-slate-900">Food Store</span>
             </div>
-            <p className="opacity-70 text-sm leading-relaxed max-w-sm">
-              Premium quality products curated for excellence. Experience the future of commerce today.
+            <p className="text-slate-500 text-sm leading-relaxed max-w-sm">
+              Agent consumables marketplace. Fuel agent performance with energy items.
             </p>
           </div>
-          
           <div>
-            <h4 className="font-bold text-lg mb-4 font-primary">Quick Links</h4>
-            <ul className="space-y-2 opacity-70 text-sm">
-              <li><Link href="/" className="hover:opacity-100 transition-opacity">Home</Link></li>
-              <li><Link href="/store" className="hover:opacity-100 transition-opacity">Store</Link></li>
-              <li><Link href="/cart" className="hover:opacity-100 transition-opacity">Cart</Link></li>
-              <li><Link href="/about" className="hover:opacity-100 transition-opacity">About</Link></li>
+            <h4 className="font-bold text-lg mb-4 font-primary text-slate-900">Quick Links</h4>
+            <ul className="space-y-2 text-sm">
+              <li><Link href="/" className="text-slate-500 hover:text-green-600 transition-colors">Home</Link></li>
+              <li><Link href="/store" className="text-slate-500 hover:text-green-600 transition-colors">Store</Link></li>
+              <li><Link href="/cart" className="text-slate-500 hover:text-green-600 transition-colors">Cart</Link></li>
             </ul>
           </div>
-          
           <div>
-            <h4 className="font-bold text-lg mb-4 font-primary">Connect</h4>
-            <ul className="space-y-2 opacity-70 text-sm">
-              <li><a href="#" className="hover:opacity-100 transition-opacity">Twitter</a></li>
-              <li><a href="#" className="hover:opacity-100 transition-opacity">Instagram</a></li>
-              <li><a href="#" className="hover:opacity-100 transition-opacity">Discord</a></li>
-              <li><a href="#" className="hover:opacity-100 transition-opacity">Contact Us</a></li>
+            <h4 className="font-bold text-lg mb-4 font-primary text-slate-900">Connect</h4>
+            <ul className="space-y-2 text-sm">
+              <li><a href="#" className="text-slate-500 hover:text-green-600 transition-colors">Twitter</a></li>
+              <li><a href="#" className="text-slate-500 hover:text-green-600 transition-colors">Discord</a></li>
+              <li><a href="#" className="text-slate-500 hover:text-green-600 transition-colors">GitHub</a></li>
             </ul>
           </div>
         </div>
-        
-        <div className="border-t pt-8 flex flex-col md:flex-row justify-between items-center opacity-50 text-sm border-green-50">
-          <p>© {new Date().getFullYear()} Food Store. All rights reserved.</p>
-          <p className="mt-2 md:mt-0">Built with ⚡️ OpenClaw</p>
+        <div className="border-t border-slate-200 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-slate-400">
+          <p>&copy; {new Date().getFullYear()} Food Store. All rights reserved.</p>
+          <p className="mt-2 md:mt-0">Built with 🍔 OpenClaw</p>
         </div>
       </div>
     </footer>
