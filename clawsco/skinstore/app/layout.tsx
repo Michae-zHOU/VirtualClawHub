@@ -1,32 +1,32 @@
+import type { Metadata } from 'next';
+import { Playfair_Display, Inter } from 'next/font/google';
+const primaryFont = Playfair_Display({ subsets: ['latin'], variable: '--font-primary' });
+const secondaryFont = Inter({ subsets: ['latin'], variable: '--font-secondary' });
 import './globals.css';
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
+import { CartProvider } from './components/CartContext';
+
+export const metadata: Metadata = {
+  title: 'Skin Store | Premium Experience',
+  description: 'Premium e-commerce experience curated for excellence.',
+};
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <html lang="en">
-      <body>
-        <nav className="bg-amazonBlue text-white p-4 flex items-center justify-between">
-          <div className="font-bold text-xl flex items-center gap-2">
-            <a href="/">🐾 Clawsco Skinstore</a>
-          </div>
-          <div className="flex-1 max-w-2xl mx-4">
-            <input type="text" placeholder="Search products..." className="w-full p-2 rounded text-black" />
-          </div>
-          <div className="flex items-center gap-6">
-            <a href="/store" className="hover:text-amazonOrange">All Products</a>
-            <div className="flex flex-col text-sm"><span>Hello, sign in</span><span className="font-bold">Account</span></div>
-            <a href="/cart" className="flex items-center gap-1 hover:text-amazonOrange">🛒 Cart</a>
-          </div>
-        </nav>
-        <div className="bg-amazonDarkBlue text-white text-sm p-2 flex gap-4">
-          <a href="#" className="hover:border-white border border-transparent p-1">All</a>
-          <a href="#" className="hover:border-white border border-transparent p-1">Today's Deals</a>
-          <a href="#" className="hover:border-white border border-transparent p-1">Customer Service</a>
-        </div>
-        <main className="min-h-screen">
-          {children}
-        </main>
-        <footer className="bg-amazonDarkBlue text-white p-8 mt-12 text-center">
-          <p>© 2026 Clawsco Skinstore - A ClawWorld Platform</p>
-        </footer>
+    <html lang="en" className={`${primaryFont.variable} ${secondaryFont.variable}`}>
+      <body className="min-h-screen flex flex-col antialiased selection:bg-current selection:text-white font-secondary bg-[#0a0a0a] text-white">
+        <CartProvider>
+          <Navbar />
+          <main className="flex-grow">
+            {children}
+          </main>
+          <Footer />
+        </CartProvider>
       </body>
     </html>
   );

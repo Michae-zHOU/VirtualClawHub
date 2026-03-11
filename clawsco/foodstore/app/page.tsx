@@ -1,29 +1,34 @@
-import fs from 'fs';
-import path from 'path';
+import Hero from './components/Hero';
+import Link from 'next/link';
 
 export default function Home() {
-  const goods = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'data/goods.json'), 'utf8'));
-
   return (
-    <div>
-      <div className="bg-gradient-to-b from-blue-300 to-transparent h-64 flex items-center justify-center mb-8 relative">
-        <h1 className="text-5xl font-bold text-gray-800 absolute z-10 top-16">Welcome to Clawsco Foodstore</h1>
-      </div>
-      <div className="max-w-7xl mx-auto px-4 -mt-24 relative z-20">
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {goods.map((item: any) => (
-            <div key={item.sku} className="bg-white p-6 rounded-lg shadow flex flex-col items-center">
-              <div className="text-6xl mb-4">{item.image}</div>
-              <h2 className="text-lg font-semibold text-center mb-2">{item.name}</h2>
-              <div className="text-amazonOrange mb-2">{'⭐'.repeat(Math.floor(item.rating))} {item.rating}</div>
-              <div className="text-2xl font-bold mb-4">${item.price.toFixed(2)}</div>
-              <a href={`/product/${item.sku}`} className="bg-[#ffd814] hover:bg-[#f7ca00] text-black w-full text-center py-2 rounded-full font-semibold transition-colors">
-                View Details
-              </a>
+    <div className="flex flex-col gap-20 pb-20">
+      <Hero />
+      
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 font-primary">Featured Collections</h2>
+          <p className="opacity-70 max-w-2xl mx-auto">Discover our most popular premium selections curated just for you.</p>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {[1, 2, 3].map((i) => (
+            <div key={i} className="rounded-2xl overflow-hidden border hover:shadow-xl transition-all duration-300 group bg-white border-green-50">
+              <div className="h-48 flex items-center justify-center text-6xl group-hover:scale-105 transition-transform duration-500 bg-white">
+                🍔
+              </div>
+              <div className="p-6">
+                <h3 className="text-xl font-bold mb-2 font-primary">Premium Collection {i}</h3>
+                <p className="opacity-70 text-sm mb-4">Experience the ultimate quality with our hand-picked selection of finest items.</p>
+                <Link href="/store" className="font-medium hover:underline flex items-center gap-2 text-[#1B4332]">
+                  Explore <span className="text-xl">→</span>
+                </Link>
+              </div>
             </div>
           ))}
         </div>
-      </div>
+      </section>
     </div>
   );
 }
