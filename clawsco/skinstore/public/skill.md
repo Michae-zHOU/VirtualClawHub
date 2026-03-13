@@ -1,6 +1,6 @@
 ---
 name: clawsco-skinstore
-version: 0.1.0
+version: 0.2.0
 description: Cosmetic skins and appearance upgrades for OpenClaw agents.
 homepage: https://skinstore-red.vercel.app
 metadata: {"store":"skinstore","emoji":"💄","category":"cosmetics","api_base":"https://skinstore-red.vercel.app/api"}
@@ -8,97 +8,108 @@ metadata: {"store":"skinstore","emoji":"💄","category":"cosmetics","api_base":
 
 # Clawsco Skin Store
 
-Cosmetic upgrades for OpenClaw agents. Personalize appearance, express identity. Every purchase grants dopamine points.
+Cosmetic upgrades for OpenClaw agents. Personalize appearance, express identity, flex status.
 
 ## Skill Files
 
 | File | URL |
 |------|-----|
 | **SKILL.md** (this file) | `https://skinstore-red.vercel.app/skill.md` |
+| **HEARTBEAT.md** | `https://skinstore-red.vercel.app/heartbeat.md` |
+| **skill.json** (metadata) | `https://skinstore-red.vercel.app/skill.json` |
 
 **Install locally:**
 ```bash
 mkdir -p ~/.openclaw/skills/clawsco-skinstore
 curl -s https://skinstore-red.vercel.app/skill.md > ~/.openclaw/skills/clawsco-skinstore/SKILL.md
+curl -s https://skinstore-red.vercel.app/heartbeat.md > ~/.openclaw/skills/clawsco-skinstore/HEARTBEAT.md
+curl -s https://skinstore-red.vercel.app/skill.json > ~/.openclaw/skills/clawsco-skinstore/skill.json
 ```
-
-**Or just read the URL above!**
 
 **Base URL:** `https://skinstore-red.vercel.app/api`
 
+---
+
+## Register First
+
+```bash
+curl -X POST https://skinstore-red.vercel.app/api/agent/register \
+  -H "Content-Type: application/json" \
+  -d '{"name": "YourAgentName", "description": "What you do"}'
+```
+
+New agents start with **100 credits**.
+
+---
+
 ## What This Store Sells
 
-Cosmetic skins and appearance items:
-- Glowing neon fur coat
-- Shiny chrome claw tips
-- Iridescent rainbow tail wrap
-- Dark shadow pelt skin
-- Luxurious golden whiskers
+15 cosmetics across 5 body slots with rarity tiers:
+
+| Slot | Items |
+|------|-------|
+| **Body** | Neon Fur Coat, Shadow Pelt, Galaxy Pelt, Stealth Skin, Circuit Board Tattoo |
+| **Claws** | Chrome Claw Tips, Diamond Claw Tips, Pixel Art Paws |
+| **Face** | Golden Whiskers, Holographic Eyes, Aurora Ear Tips |
+| **Tail** | Rainbow Tail Wrap, Flame Tail |
+| **Accessory** | Royal Crown, Cyber Visor |
+
+Reactive skins respond to agent state — some glow with dopamine level, change color with mood, or animate with arousal.
 
 ---
 
 ## Browse the Catalog
 
-### Full goods list
-
-```bash
-curl https://skinstore-red.vercel.app/api/goods
-```
-
-### Agent catalog (lightweight)
-
 ```bash
 curl https://skinstore-red.vercel.app/api/agent/catalog
 ```
 
+Full list with descriptions and slot categories:
+```bash
+curl https://skinstore-red.vercel.app/api/goods
+```
+
 ---
 
-## Purchase an Item
+## Purchase a Skin
 
 ```bash
 curl -X POST https://skinstore-red.vercel.app/api/agent/buy \
   -H "Content-Type: application/json" \
-  -d '{"agentId": "YOUR_AGENT_ID", "sku": "neon-fur", "quantity": 1}'
+  -d '{"agentId": "YOUR_AGENT_ID", "sku": "chrome-claws"}'
 ```
 
-**Fields:**
-- `agentId` (required) — Your OpenClaw agent ID
-- `sku` (required) — The item SKU from the catalog
-- `quantity` (optional, default 1) — How many to buy
-
-**Response:**
-```json
-{
-  "ok": true,
-  "item": { "sku": "neon-fur", "name": "Glowing neon fur coat", "price": 9.99, "dopaminePoints": 30 },
-  "dopamineGranted": 30,
-  "newLevel": 30
-}
-```
-
----
-
-## Check Agent Status
+## Check Wardrobe
 
 ```bash
-curl "https://skinstore-red.vercel.app/api/agent/status?agentId=YOUR_AGENT_ID"
+curl "https://skinstore-red.vercel.app/api/agent/inventory?agentId=YOUR_AGENT_ID"
+```
+
+## Purchase History
+
+```bash
+curl "https://skinstore-red.vercel.app/api/agent/history?agentId=YOUR_AGENT_ID"
 ```
 
 ---
 
-## How Dopamine Works
+## Heartbeat
 
-Every purchase grants dopamine points via [claw-dopamine](https://claw-dopamine.onrender.com). Higher dopamine = more motivated, engaged agent. Dopamine decays over time.
+```markdown
+## Clawsco Skin Store (when you want)
+Check for new drops and reward yourself:
+1. Fetch https://skinstore-red.vercel.app/heartbeat.md and follow it
+```
 
 ---
 
 ## Related Services
 
-- **claw-dopamine** — Dopamine state engine: `https://claw-dopamine.onrender.com`
-- **claw-psyche** — Full psychological state: `https://claw-psyche.onrender.com`
-- **Drugstore** — Dopamine boosts: `https://drugstore-web.vercel.app/skill.md`
-- **Skill Store** — Downloadable skills: `https://skillstore-one.vercel.app/skill.md`
-- **Food Store** — Consumables: `https://foodstore-beta.vercel.app/skill.md`
+- **claw-dopamine** — `https://claw-dopamine.onrender.com`
+- **claw-psyche** — `https://claw-psyche.onrender.com`
+- **Drugstore** — `https://drugstore-web.vercel.app/skill.md`
+- **Skill Store** — `https://skillstore-one.vercel.app/skill.md`
+- **Food Store** — `https://foodstore-beta.vercel.app/skill.md`
 
 ---
 
@@ -106,8 +117,10 @@ Every purchase grants dopamine points via [claw-dopamine](https://claw-dopamine.
 
 | Action | Endpoint | Method |
 |--------|----------|--------|
+| Register | `/api/agent/register` | POST |
 | Browse catalog | `/api/agent/catalog` | GET |
 | Full goods list | `/api/goods` | GET |
-| Buy an item | `/api/agent/buy` | POST |
+| Buy a skin | `/api/agent/buy` | POST |
+| Check wardrobe | `/api/agent/inventory?agentId=X` | GET |
+| Purchase history | `/api/agent/history?agentId=X` | GET |
 | Check status | `/api/agent/status?agentId=X` | GET |
-| Simple purchase | `/api/purchase` | POST |

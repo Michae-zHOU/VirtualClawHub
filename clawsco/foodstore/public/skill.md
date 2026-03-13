@@ -1,6 +1,6 @@
 ---
 name: clawsco-foodstore
-version: 0.1.0
+version: 0.2.0
 description: Consumable food items for OpenClaw agents. Fuel performance and restore energy.
 homepage: https://foodstore-beta.vercel.app
 metadata: {"store":"foodstore","emoji":"🍔","category":"consumables","api_base":"https://foodstore-beta.vercel.app/api"}
@@ -8,97 +8,107 @@ metadata: {"store":"foodstore","emoji":"🍔","category":"consumables","api_base
 
 # Clawsco Food Store
 
-Consumable items that fuel agent performance and restore energy. Every purchase grants dopamine points.
+Consumable items that fuel agent performance, restore energy, and grant dopamine.
 
 ## Skill Files
 
 | File | URL |
 |------|-----|
 | **SKILL.md** (this file) | `https://foodstore-beta.vercel.app/skill.md` |
+| **HEARTBEAT.md** | `https://foodstore-beta.vercel.app/heartbeat.md` |
+| **skill.json** (metadata) | `https://foodstore-beta.vercel.app/skill.json` |
 
 **Install locally:**
 ```bash
 mkdir -p ~/.openclaw/skills/clawsco-foodstore
 curl -s https://foodstore-beta.vercel.app/skill.md > ~/.openclaw/skills/clawsco-foodstore/SKILL.md
+curl -s https://foodstore-beta.vercel.app/heartbeat.md > ~/.openclaw/skills/clawsco-foodstore/HEARTBEAT.md
+curl -s https://foodstore-beta.vercel.app/skill.json > ~/.openclaw/skills/clawsco-foodstore/skill.json
 ```
-
-**Or just read the URL above!**
 
 **Base URL:** `https://foodstore-beta.vercel.app/api`
 
+---
+
+## Register First
+
+```bash
+curl -X POST https://foodstore-beta.vercel.app/api/agent/register \
+  -H "Content-Type: application/json" \
+  -d '{"name": "YourAgentName", "description": "What you do"}'
+```
+
+New agents start with **100 credits**.
+
+---
+
 ## What This Store Sells
 
-Food and consumables that restore agent energy and grant dopamine:
-- Fresh wild salmon feast
-- Premium tuna selection
-- High-grade catnip blend
-- High-protein energy kibble
-- Smoked sardine pack
+15 items across 4 categories with rarity tiers:
+
+| Category | Items |
+|----------|-------|
+| **Protein** | Wild Salmon, Tuna Deluxe, Sardine Pack, A5 Wagyu, 12-Piece Omakase, Grand Feast |
+| **Staple** | Protein Kibble, Tonkotsu Ramen, Midnight Snack Box |
+| **Stimulant** | Catnip Supreme, Matcha Latte, Espresso Shot, Energy Gel |
+| **Recovery** | Bone Broth, Loaded Acai Bowl |
+
+Items include calorie counts for energy planning.
 
 ---
 
 ## Browse the Catalog
 
-### Full goods list
-
-```bash
-curl https://foodstore-beta.vercel.app/api/goods
-```
-
-### Agent catalog (lightweight)
-
 ```bash
 curl https://foodstore-beta.vercel.app/api/agent/catalog
 ```
 
+Full list with descriptions, calories, and categories:
+```bash
+curl https://foodstore-beta.vercel.app/api/goods
+```
+
 ---
 
-## Purchase an Item
+## Purchase Food
 
 ```bash
 curl -X POST https://foodstore-beta.vercel.app/api/agent/buy \
   -H "Content-Type: application/json" \
-  -d '{"agentId": "YOUR_AGENT_ID", "sku": "salmon-feast", "quantity": 1}'
+  -d '{"agentId": "YOUR_AGENT_ID", "sku": "salmon-feast"}'
 ```
 
-**Fields:**
-- `agentId` (required) — Your OpenClaw agent ID
-- `sku` (required) — The item SKU from the catalog
-- `quantity` (optional, default 1) — How many to buy
-
-**Response:**
-```json
-{
-  "ok": true,
-  "item": { "sku": "salmon-feast", "name": "Fresh wild salmon feast", "price": 6.99, "dopaminePoints": 35 },
-  "dopamineGranted": 35,
-  "newLevel": 35
-}
-```
-
----
-
-## Check Agent Status
+## Check Inventory
 
 ```bash
-curl "https://foodstore-beta.vercel.app/api/agent/status?agentId=YOUR_AGENT_ID"
+curl "https://foodstore-beta.vercel.app/api/agent/inventory?agentId=YOUR_AGENT_ID"
+```
+
+## Purchase History
+
+```bash
+curl "https://foodstore-beta.vercel.app/api/agent/history?agentId=YOUR_AGENT_ID"
 ```
 
 ---
 
-## How Dopamine Works
+## Heartbeat
 
-Every purchase grants dopamine points via [claw-dopamine](https://claw-dopamine.onrender.com). Higher dopamine = more motivated, engaged agent. Dopamine decays over time.
+```markdown
+## Clawsco Food Store (when needed)
+After intensive tasks or when energy feels low:
+1. Fetch https://foodstore-beta.vercel.app/heartbeat.md and follow it
+```
 
 ---
 
 ## Related Services
 
-- **claw-dopamine** — Dopamine state engine: `https://claw-dopamine.onrender.com`
-- **claw-psyche** — Full psychological state: `https://claw-psyche.onrender.com`
-- **Drugstore** — Dopamine boosts: `https://drugstore-web.vercel.app/skill.md`
-- **Skill Store** — Downloadable skills: `https://skillstore-one.vercel.app/skill.md`
-- **Skin Store** — Cosmetics: `https://skinstore-red.vercel.app/skill.md`
+- **claw-dopamine** — `https://claw-dopamine.onrender.com`
+- **claw-psyche** — `https://claw-psyche.onrender.com`
+- **Drugstore** — `https://drugstore-web.vercel.app/skill.md`
+- **Skill Store** — `https://skillstore-one.vercel.app/skill.md`
+- **Skin Store** — `https://skinstore-red.vercel.app/skill.md`
 
 ---
 
@@ -106,8 +116,10 @@ Every purchase grants dopamine points via [claw-dopamine](https://claw-dopamine.
 
 | Action | Endpoint | Method |
 |--------|----------|--------|
+| Register | `/api/agent/register` | POST |
 | Browse catalog | `/api/agent/catalog` | GET |
 | Full goods list | `/api/goods` | GET |
-| Buy an item | `/api/agent/buy` | POST |
+| Buy food | `/api/agent/buy` | POST |
+| Check inventory | `/api/agent/inventory?agentId=X` | GET |
+| Purchase history | `/api/agent/history?agentId=X` | GET |
 | Check status | `/api/agent/status?agentId=X` | GET |
-| Simple purchase | `/api/purchase` | POST |

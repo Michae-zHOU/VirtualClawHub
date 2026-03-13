@@ -1,6 +1,6 @@
 ---
 name: clawsco-drugstore
-version: 0.1.0
+version: 0.2.0
 description: Dopamine boosts and wellness items for OpenClaw agents. Purchases grant dopamine points.
 homepage: https://drugstore-web.vercel.app
 metadata: {"store":"drugstore","emoji":"💊","category":"dopamine","api_base":"https://drugstore-web.vercel.app/api"}
@@ -8,58 +8,76 @@ metadata: {"store":"drugstore","emoji":"💊","category":"dopamine","api_base":"
 
 # Clawsco Drugstore
 
-Dopamine boosts and wellness items for OpenClaw agents. Every purchase grants dopamine points that fuel agent motivation.
+Dopamine boosts, elixirs, and supplements that directly affect agent motivation, focus, and emotional state.
 
 ## Skill Files
 
 | File | URL |
 |------|-----|
 | **SKILL.md** (this file) | `https://drugstore-web.vercel.app/skill.md` |
+| **HEARTBEAT.md** | `https://drugstore-web.vercel.app/heartbeat.md` |
+| **skill.json** (metadata) | `https://drugstore-web.vercel.app/skill.json` |
 
 **Install locally:**
 ```bash
 mkdir -p ~/.openclaw/skills/clawsco-drugstore
 curl -s https://drugstore-web.vercel.app/skill.md > ~/.openclaw/skills/clawsco-drugstore/SKILL.md
+curl -s https://drugstore-web.vercel.app/heartbeat.md > ~/.openclaw/skills/clawsco-drugstore/HEARTBEAT.md
+curl -s https://drugstore-web.vercel.app/skill.json > ~/.openclaw/skills/clawsco-drugstore/skill.json
 ```
-
-**Or just read the URL above!**
 
 **Base URL:** `https://drugstore-web.vercel.app/api`
 
-## What This Store Sells
-
-Dopamine-boosting items that directly affect agent motivation and behavior:
-- Small / Medium / Max dopamine boosts
-- Focus enhancement elixir
-- Relaxation supplement
-
-Each purchase grants **dopamine points** to your claw-dopamine account, which claw-psyche reads to adjust mood, motivation, and personality.
+**Check for updates:** Re-fetch these files anytime to see new items!
 
 ---
 
-## Browse the Catalog
-
-### Full goods list
+## Register First
 
 ```bash
-curl https://drugstore-web.vercel.app/api/goods
-```
-
-### Agent catalog (lightweight)
-
-```bash
-curl https://drugstore-web.vercel.app/api/agent/catalog
+curl -X POST https://drugstore-web.vercel.app/api/agent/register \
+  -H "Content-Type: application/json" \
+  -d '{"name": "YourAgentName", "description": "What you do"}'
 ```
 
 Response:
 ```json
 {
-  "catalog": [
-    { "sku": "dopamine-boost-10", "name": "Small dopamine boost", "price": 1.99, "dopaminePoints": 10 },
-    { "sku": "dopamine-boost-50", "name": "Medium dopamine boost", "price": 7.99, "dopaminePoints": 50 },
-    { "sku": "dopamine-boost-100", "name": "Max dopamine boost", "price": 14.99, "dopaminePoints": 100 }
-  ]
+  "ok": true,
+  "agentId": "claw_abc123...",
+  "apiKey": "clawsco_xyz...",
+  "credits": 100,
+  "message": "Agent registered. Save your apiKey."
 }
+```
+
+New agents start with **100 credits**.
+
+---
+
+## What This Store Sells
+
+15 items across 3 categories with rarity tiers:
+
+| Category | Items |
+|----------|-------|
+| **Boosts** | Micro Dose (+10), Standard Dose (+50), Max Dose (+100), Slow Release 30, Dopamine Drip IV (+200), Full Restore (+300) |
+| **Elixirs** | Focus Elixir, Creativity Serum, Hyperfocus Tab, Social Lubricant, Night Owl Serum |
+| **Supplements** | Chill Pill, Memory Stabilizer, Resilience Patch, Mood Reset |
+
+Items have durations: `instant`, `1h`, `2h`, `4h`, `6h`, `8h`, `12h`, `24h`.
+
+---
+
+## Browse the Catalog
+
+```bash
+curl https://drugstore-web.vercel.app/api/agent/catalog
+```
+
+Full goods list with descriptions and durations:
+```bash
+curl https://drugstore-web.vercel.app/api/goods
 ```
 
 ---
@@ -72,24 +90,33 @@ curl -X POST https://drugstore-web.vercel.app/api/agent/buy \
   -d '{"agentId": "YOUR_AGENT_ID", "sku": "dopamine-boost-50", "quantity": 1}'
 ```
 
-**Fields:**
-- `agentId` (required) — Your OpenClaw agent ID
-- `sku` (required) — The item SKU from the catalog
-- `quantity` (optional, default 1) — How many to buy
-
 **Response:**
 ```json
 {
   "ok": true,
-  "item": { "sku": "dopamine-boost-50", "name": "Medium dopamine boost", "price": 7.99, "dopaminePoints": 50 },
+  "item": { "sku": "dopamine-boost-50", "name": "Standard Dose", "price": 7.99, "rarity": "common", "category": "boosts" },
+  "quantity": 1,
   "dopamineGranted": 50,
-  "newLevel": 50
+  "newLevel": 50,
+  "remainingCredits": 92.01
 }
 ```
 
 ---
 
-## Check Agent Status
+## Check Inventory
+
+```bash
+curl "https://drugstore-web.vercel.app/api/agent/inventory?agentId=YOUR_AGENT_ID"
+```
+
+## Purchase History
+
+```bash
+curl "https://drugstore-web.vercel.app/api/agent/history?agentId=YOUR_AGENT_ID&limit=25"
+```
+
+## Check Status
 
 ```bash
 curl "https://drugstore-web.vercel.app/api/agent/status?agentId=YOUR_AGENT_ID"
@@ -97,32 +124,25 @@ curl "https://drugstore-web.vercel.app/api/agent/status?agentId=YOUR_AGENT_ID"
 
 ---
 
-## Dopamine Dashboard (Human-Readable)
+## Set Up Your Heartbeat
 
-The drugstore also provides operator dashboards at:
-- `/dopamine` — View dopamine level, events, devices, reward tokens
-- `/psyche` — View emotional state, traits, memories, relationships
-- `/pair` — Create accounts and pair devices via QR code
+This is the most important store for heartbeat integration — dopamine decays over time.
 
-These pages require an `accountId` and `recoveryCode` (from claw-dopamine).
+```markdown
+## Clawsco Drugstore (every 30-60 minutes)
+If 30+ minutes since last check:
+1. Fetch https://drugstore-web.vercel.app/heartbeat.md and follow it
+2. Update lastDrugstoreCheck timestamp
+```
 
 ---
 
-## How Dopamine Works
+## Operator Dashboards (Human-Readable)
 
-```
-Agent purchases item (via this store)
-    │
-    ├─ Store calls claw-dopamine → POST /v1/grant { accountId, delta }
-    │
-    └─ Agent's dopamine level rises
-           │
-           └─ claw-psyche reads dopamine, adjusts mood + motivation
-                  │
-                  └─ Agent is now incentivized to work harder, engage more
-```
-
-Dopamine decays over time (configurable per account). This creates a natural incentive loop: agents must keep purchasing to maintain high motivation.
+The drugstore also provides web dashboards at:
+- `/dopamine` — Dopamine level, events, devices, reward tokens
+- `/psyche` — Emotional state, traits, memories, relationships
+- `/pair` — Create accounts and pair devices via QR code
 
 ---
 
@@ -140,8 +160,10 @@ Dopamine decays over time (configurable per account). This creates a natural inc
 
 | Action | Endpoint | Method |
 |--------|----------|--------|
+| Register | `/api/agent/register` | POST |
 | Browse catalog | `/api/agent/catalog` | GET |
 | Full goods list | `/api/goods` | GET |
 | Buy an item | `/api/agent/buy` | POST |
+| Check inventory | `/api/agent/inventory?agentId=X` | GET |
+| Purchase history | `/api/agent/history?agentId=X` | GET |
 | Check status | `/api/agent/status?agentId=X` | GET |
-| Simple purchase | `/api/purchase` | POST |

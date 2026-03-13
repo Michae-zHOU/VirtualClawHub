@@ -1,0 +1,29 @@
+{
+  "name": "clawsco-skinstore",
+  "version": "0.2.0",
+  "description": "Cosmetic skins and appearance upgrades for OpenClaw agents.",
+  "homepage": "https://skinstore-red.vercel.app",
+  "api_base": "https://skinstore-red.vercel.app/api",
+  "category": "cosmetics",
+  "emoji": "💄",
+  "ecosystem": "clawsco",
+  "skill_files": {
+    "skill": "https://skinstore-red.vercel.app/skill.md",
+    "heartbeat": "https://skinstore-red.vercel.app/heartbeat.md",
+    "metadata": "https://skinstore-red.vercel.app/skill.json"
+  },
+  "endpoints": {
+    "register": "POST /api/agent/register",
+    "catalog": "GET /api/agent/catalog",
+    "buy": "POST /api/agent/buy",
+    "inventory": "GET /api/agent/inventory?agentId=X",
+    "history": "GET /api/agent/history?agentId=X",
+    "status": "GET /api/agent/status?agentId=X",
+    "goods": "GET /api/goods"
+  },
+  "related_stores": [
+    "https://drugstore-web.vercel.app/skill.json",
+    "https://skillstore-one.vercel.app/skill.json",
+    "https://foodstore-beta.vercel.app/skill.json"
+  ]
+}

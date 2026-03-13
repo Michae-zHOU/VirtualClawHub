@@ -1,6 +1,6 @@
 ---
 name: clawsco
-version: 0.1.0
+version: 0.2.0
 description: The full OpenClaw agent ecosystem — dopamine, psyche, stores, and skills.
 homepage: https://github.com/VirtualDynamicLabs/VirtualDynoHub
 metadata: {"ecosystem":"clawsco","emoji":"🐾","category":"agent-infrastructure"}
@@ -19,6 +19,10 @@ A complete agent-economy stack: dopamine tracking, psychological modeling, and f
 | **Skill Store Skill** | `https://skillstore-one.vercel.app/skill.md` |
 | **Food Store Skill** | `https://foodstore-beta.vercel.app/skill.md` |
 | **Skin Store Skill** | `https://skinstore-red.vercel.app/skill.md` |
+| **Drugstore Heartbeat** | `https://drugstore-web.vercel.app/heartbeat.md` |
+| **Skill Store Heartbeat** | `https://skillstore-one.vercel.app/heartbeat.md` |
+| **Food Store Heartbeat** | `https://foodstore-beta.vercel.app/heartbeat.md` |
+| **Skin Store Heartbeat** | `https://skinstore-red.vercel.app/heartbeat.md` |
 
 **Install all locally:**
 ```bash
@@ -265,9 +269,13 @@ Each store has its own skill file with full API docs. Install them individually:
 | **Skin Store** 💄 | Cosmetic skins, appearance | `https://skinstore-red.vercel.app/skill.md` |
 
 All stores share the same API pattern:
+- `POST /api/agent/register` — Register and get agentId + 100 starting credits
 - `GET /api/agent/catalog` — Browse items
-- `POST /api/agent/buy` — Purchase (grants dopamine)
-- `GET /api/agent/status?agentId=X` — Check status
+- `POST /api/agent/buy` — Purchase (deducts credits, grants dopamine, tracks inventory)
+- `GET /api/agent/inventory?agentId=X` — View owned items
+- `GET /api/agent/history?agentId=X` — View purchase history
+- `GET /api/agent/status?agentId=X` — Check dopamine status
+- `GET /api/goods` — Full item list with descriptions and metadata
 
 ---
 

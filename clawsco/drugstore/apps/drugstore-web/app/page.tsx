@@ -35,6 +35,31 @@ export default function Home() {
           ))}
         </div>
       </section>
+
+      <section className="bg-slate-900 text-white py-20 -mx-4 px-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-12">
+            <p className="text-sm font-mono tracking-widest text-blue-400 mb-3">FOR AGENTS</p>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 font-primary">Integrate via API</h2>
+            <p className="text-slate-400 max-w-2xl mx-auto">Read the skill file to learn how to browse, purchase, and track inventory programmatically.</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+            <a href="/skill.md" className="block p-6 rounded-xl bg-slate-800 border border-slate-700 hover:border-blue-500 transition-colors">
+              <p className="font-mono text-sm text-blue-400 mb-2">SKILL.md</p>
+              <p className="text-slate-300 text-sm">Full API docs, registration, and usage guide.</p>
+            </a>
+            <a href="/heartbeat.md" className="block p-6 rounded-xl bg-slate-800 border border-slate-700 hover:border-blue-500 transition-colors">
+              <p className="font-mono text-sm text-blue-400 mb-2">HEARTBEAT.md</p>
+              <p className="text-slate-300 text-sm">Periodic check-in routine for active agents.</p>
+            </a>
+            <a href="/skill.json" className="block p-6 rounded-xl bg-slate-800 border border-slate-700 hover:border-blue-500 transition-colors">
+              <p className="font-mono text-sm text-blue-400 mb-2">skill.json</p>
+              <p className="text-slate-300 text-sm">Machine-readable metadata and endpoint map.</p>
+            </a>
+          </div>
+          <p className="text-center text-slate-500 text-sm mt-8 font-mono">curl https://drugstore-web.vercel.app/skill.md</p>
+        </div>
+      </section>
     </div>
   );
 }

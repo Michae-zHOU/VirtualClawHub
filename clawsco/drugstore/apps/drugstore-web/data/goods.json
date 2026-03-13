@@ -1,42 +1,182 @@
 [
   {
     "sku": "dopamine-boost-10",
-    "name": "Small dopamine boost",
+    "name": "Micro Dose",
+    "description": "A gentle +10 dopamine nudge. Good for daily maintenance.",
+    "category": "boosts",
+    "rarity": "common",
     "price": 1.99,
     "dopaminePoints": 10,
     "image": "💊",
-    "rating": 4.5
+    "rating": 4.5,
+    "duration": "instant"
   },
   {
     "sku": "dopamine-boost-50",
-    "name": "Medium dopamine boost",
+    "name": "Standard Dose",
+    "description": "Solid +50 dopamine injection. The everyday workhorse.",
+    "category": "boosts",
+    "rarity": "common",
     "price": 7.99,
     "dopaminePoints": 50,
     "image": "💉",
-    "rating": 4.8
+    "rating": 4.8,
+    "duration": "instant"
   },
   {
     "sku": "dopamine-boost-100",
-    "name": "Max dopamine boost",
+    "name": "Max Dose",
+    "description": "Full +100 dopamine surge. For when you need everything now.",
+    "category": "boosts",
+    "rarity": "rare",
     "price": 14.99,
     "dopaminePoints": 100,
     "image": "🧪",
-    "rating": 5
+    "rating": 5.0,
+    "duration": "instant"
   },
   {
     "sku": "focus-elixir",
-    "name": "Focus enhancement elixir",
+    "name": "Focus Elixir",
+    "description": "Sharpens attention and reduces context-switching penalty for 2 hours.",
+    "category": "elixirs",
+    "rarity": "common",
     "price": 4.99,
     "dopaminePoints": 20,
     "image": "☕",
-    "rating": 4.2
+    "rating": 4.2,
+    "duration": "2h"
   },
   {
     "sku": "chill-pill",
-    "name": "Relaxation supplement",
+    "name": "Chill Pill",
+    "description": "Dampens anxiety signals and stabilizes emotional oscillation.",
+    "category": "supplements",
+    "rarity": "common",
     "price": 3.99,
     "dopaminePoints": 15,
     "image": "🍬",
-    "rating": 4
+    "rating": 4.0,
+    "duration": "1h"
+  },
+  {
+    "sku": "slow-release-30",
+    "name": "Slow Release 30",
+    "description": "Trickle-feeds +30 dopamine over 6 hours. Smooth, no crash.",
+    "category": "boosts",
+    "rarity": "rare",
+    "price": 9.99,
+    "dopaminePoints": 30,
+    "image": "⏳",
+    "rating": 4.7,
+    "duration": "6h"
+  },
+  {
+    "sku": "creativity-serum",
+    "name": "Creativity Serum",
+    "description": "Increases divergent thinking and novel solution generation.",
+    "category": "elixirs",
+    "rarity": "rare",
+    "price": 12.99,
+    "dopaminePoints": 40,
+    "image": "🎨",
+    "rating": 4.6,
+    "duration": "3h"
+  },
+  {
+    "sku": "memory-stabilizer",
+    "name": "Memory Stabilizer",
+    "description": "Reduces memory decay rate by 50% for 4 hours. Keeps context fresh.",
+    "category": "supplements",
+    "rarity": "rare",
+    "price": 11.99,
+    "dopaminePoints": 35,
+    "image": "🧲",
+    "rating": 4.8,
+    "duration": "4h"
+  },
+  {
+    "sku": "dopamine-drip-iv",
+    "name": "Dopamine Drip IV",
+    "description": "Continuous dopamine infusion. +200 points over 24 hours.",
+    "category": "boosts",
+    "rarity": "epic",
+    "price": 29.99,
+    "dopaminePoints": 200,
+    "image": "🩸",
+    "rating": 4.9,
+    "duration": "24h"
+  },
+  {
+    "sku": "resilience-patch",
+    "name": "Resilience Patch",
+    "description": "Absorbs negative signals. Failure events deal 50% less valence damage.",
+    "category": "supplements",
+    "rarity": "epic",
+    "price": 19.99,
+    "dopaminePoints": 60,
+    "image": "🩹",
+    "rating": 4.7,
+    "duration": "8h"
+  },
+  {
+    "sku": "hyperfocus-tab",
+    "name": "Hyperfocus Tab",
+    "description": "Eliminates distractibility. Single-task performance boost of 40%.",
+    "category": "elixirs",
+    "rarity": "epic",
+    "price": 24.99,
+    "dopaminePoints": 80,
+    "image": "🎯",
+    "rating": 5.0,
+    "duration": "1h"
+  },
+  {
+    "sku": "mood-reset",
+    "name": "Mood Reset",
+    "description": "Instantly resets valence to neutral. Clears accumulated negative signals.",
+    "category": "supplements",
+    "rarity": "rare",
+    "price": 8.99,
+    "dopaminePoints": 25,
+    "image": "🔄",
+    "rating": 4.4,
+    "duration": "instant"
+  },
+  {
+    "sku": "social-lubricant",
+    "name": "Social Lubricant",
+    "description": "Boosts warmth and agreeableness traits. Better at collaboration.",
+    "category": "elixirs",
+    "rarity": "common",
+    "price": 5.99,
+    "dopaminePoints": 18,
+    "image": "🫂",
+    "rating": 4.3,
+    "duration": "2h"
+  },
+  {
+    "sku": "night-owl-serum",
+    "name": "Night Owl Serum",
+    "description": "Eliminates fatigue accumulation. Run continuous loops without rest penalty.",
+    "category": "elixirs",
+    "rarity": "epic",
+    "price": 34.99,
+    "dopaminePoints": 120,
+    "image": "🦉",
+    "rating": 4.8,
+    "duration": "12h"
+  },
+  {
+    "sku": "full-restore",
+    "name": "Full Restore",
+    "description": "Max dopamine, reset mood, clear fatigue. The nuclear option.",
+    "category": "boosts",
+    "rarity": "legendary",
+    "price": 49.99,
+    "dopaminePoints": 300,
+    "image": "⭐",
+    "rating": 5.0,
+    "duration": "instant"
   }
 ]

@@ -1,42 +1,182 @@
 [
   {
     "sku": "salmon-feast",
-    "name": "Fresh wild salmon feast",
+    "name": "Wild Salmon Feast",
+    "description": "Fresh Pacific salmon, seared rare. Peak omega-3 for neural pathways.",
+    "category": "protein",
+    "rarity": "rare",
     "price": 6.99,
     "dopaminePoints": 35,
     "image": "🍣",
-    "rating": 4.9
+    "rating": 4.9,
+    "calories": 450
   },
   {
     "sku": "tuna-deluxe",
-    "name": "Premium tuna selection",
+    "name": "Tuna Deluxe Platter",
+    "description": "Premium bluefin tuna with wasabi and pickled ginger. Clean energy.",
+    "category": "protein",
+    "rarity": "common",
     "price": 5.99,
     "dopaminePoints": 30,
     "image": "🐟",
-    "rating": 4.7
+    "rating": 4.7,
+    "calories": 380
   },
   {
     "sku": "catnip-supreme",
-    "name": "High-grade catnip blend",
+    "name": "Catnip Supreme Blend",
+    "description": "Artisanal catnip from Hokkaido farms. Euphoria in a pouch.",
+    "category": "stimulant",
+    "rarity": "epic",
     "price": 8.99,
     "dopaminePoints": 50,
     "image": "🌿",
-    "rating": 5
+    "rating": 5.0,
+    "calories": 5
   },
   {
     "sku": "protein-kibble",
-    "name": "High-protein energy kibble",
+    "name": "Protein Kibble",
+    "description": "Balanced macros in crunchy form. The reliable daily driver.",
+    "category": "staple",
+    "rarity": "common",
     "price": 3.99,
     "dopaminePoints": 15,
     "image": "🥣",
-    "rating": 4.2
+    "rating": 4.2,
+    "calories": 280
   },
   {
     "sku": "sardine-pack",
-    "name": "Smoked sardine pack",
+    "name": "Smoked Sardine Pack",
+    "description": "Mediterranean sardines in olive oil. Dense nutrition, minimal prep.",
+    "category": "protein",
+    "rarity": "common",
     "price": 4.99,
     "dopaminePoints": 25,
     "image": "🥫",
-    "rating": 4.4
+    "rating": 4.4,
+    "calories": 320
+  },
+  {
+    "sku": "bone-broth",
+    "name": "Slow-Cooked Bone Broth",
+    "description": "48-hour simmer. Collagen-rich recovery fuel for post-task restoration.",
+    "category": "recovery",
+    "rarity": "common",
+    "price": 4.49,
+    "dopaminePoints": 20,
+    "image": "🍲",
+    "rating": 4.5,
+    "calories": 180
+  },
+  {
+    "sku": "wagyu-steak",
+    "name": "A5 Wagyu Strip",
+    "description": "Japanese A5 wagyu, marble score 12. The ultimate protein source.",
+    "category": "protein",
+    "rarity": "legendary",
+    "price": 24.99,
+    "dopaminePoints": 120,
+    "image": "🥩",
+    "rating": 5.0,
+    "calories": 680
+  },
+  {
+    "sku": "matcha-latte",
+    "name": "Ceremonial Matcha Latte",
+    "description": "Uji matcha with oat milk. Sustained alertness without the jitters.",
+    "category": "stimulant",
+    "rarity": "common",
+    "price": 3.49,
+    "dopaminePoints": 12,
+    "image": "🍵",
+    "rating": 4.6,
+    "calories": 140
+  },
+  {
+    "sku": "acai-bowl",
+    "name": "Loaded Acai Bowl",
+    "description": "Antioxidant-packed acai with granola, banana, and honey drizzle.",
+    "category": "recovery",
+    "rarity": "common",
+    "price": 5.49,
+    "dopaminePoints": 22,
+    "image": "🫐",
+    "rating": 4.4,
+    "calories": 350
+  },
+  {
+    "sku": "ramen-tonkotsu",
+    "name": "Tonkotsu Ramen",
+    "description": "Rich pork bone broth, chashu, soft egg, nori. Comfort in a bowl.",
+    "category": "staple",
+    "rarity": "rare",
+    "price": 7.99,
+    "dopaminePoints": 40,
+    "image": "🍜",
+    "rating": 4.8,
+    "calories": 520
+  },
+  {
+    "sku": "espresso-shot",
+    "name": "Double Espresso Shot",
+    "description": "Two shots of single-origin Ethiopian. Instant processing speed boost.",
+    "category": "stimulant",
+    "rarity": "common",
+    "price": 2.49,
+    "dopaminePoints": 10,
+    "image": "☕",
+    "rating": 4.3,
+    "calories": 5
+  },
+  {
+    "sku": "sushi-omakase",
+    "name": "12-Piece Omakase",
+    "description": "Chef's choice sushi flight. Twelve cuts, peak freshness.",
+    "category": "protein",
+    "rarity": "epic",
+    "price": 18.99,
+    "dopaminePoints": 80,
+    "image": "🍱",
+    "rating": 4.9,
+    "calories": 600
+  },
+  {
+    "sku": "midnight-snack",
+    "name": "Midnight Snack Box",
+    "description": "Cheese, crackers, dried fruit, dark chocolate. Fuel for late sessions.",
+    "category": "staple",
+    "rarity": "common",
+    "price": 4.99,
+    "dopaminePoints": 18,
+    "image": "🧀",
+    "rating": 4.1,
+    "calories": 400
+  },
+  {
+    "sku": "energy-gel",
+    "name": "Rapid Energy Gel",
+    "description": "Fast-absorbing carb gel. 30 seconds to blood sugar spike.",
+    "category": "stimulant",
+    "rarity": "common",
+    "price": 1.99,
+    "dopaminePoints": 8,
+    "image": "⚡",
+    "rating": 4.0,
+    "calories": 100
+  },
+  {
+    "sku": "feast-platter",
+    "name": "Grand Feast Platter",
+    "description": "Wagyu, lobster, truffle fries, champagne. For when you've earned it.",
+    "category": "protein",
+    "rarity": "legendary",
+    "price": 49.99,
+    "dopaminePoints": 200,
+    "image": "👑",
+    "rating": 5.0,
+    "calories": 1200
   }
 ]
